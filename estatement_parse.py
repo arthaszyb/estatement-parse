@@ -1,31 +1,41 @@
-import io
-import pdfminer.converter
-import pdfminer.pdfinterp
-import pdfminer.layout
-import pdfminer.pdfparser
-import pdfminer.pdfdocument
-import pdfminer.pdfpage
 import re
 import csv
-import glob
 from abc import ABC, abstractmethod
 from collections import namedtuple
 import yaml
-from pdfminer.layout import LAParams
 import pdfplumber
+import logging
+from pathlib import Path
+from typing import List, Optional
+from datetime import datetime
 
-# 定义具名元组
+# Define named tuple for transaction data structure
 Transaction = namedtuple("Transaction", ["bank", "date", "amount", "description", "category"])
 
 category_mapping_file = "conf/category_mapping.yaml"
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+class Config:
+    OUTPUT_DIR = Path("data/csv")
+    PDF_DIR = Path("data/statements")
+    
+    @classmethod
+    def ensure_dirs(cls):
+        cls.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        cls.PDF_DIR.mkdir(parents=True, exist_ok=True)
+
 
 class PdfTextExtractor:
-    """MixIn类， PDF文本提取"""
+    """Mixin class for PDF text extraction"""
 
     @staticmethod
     def _extract_text_from_pdf(pdf_path):
-        """从PDF文件中提取文本内容。"""
+        """Extract text content from PDF file."""
         text = ""
         try:
             with pdfplumber.open(pdf_path) as pdf:
@@ -207,49 +217,96 @@ class TrustProcessor(BankStatementProcessor, RegexTransactionExtractor):
         return transactions
 
 
-def main():
-    """主程序：处理PDF文件并输出到CSV。"""
-    # 银行处理器实例
+def save_transactions(transactions: List[Transaction], 
+                     output_file: Optional[Path] = None) -> None:
+    """Save transactions to CSV with error handling and validation."""
+    if not transactions:
+        logging.warning("No transactions to save")
+        return
+
+    output_file = output_file or Config.OUTPUT_DIR / f"transactions_{datetime.now():%Y%m%d}.csv"
+    
+    try:
+        Config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        with output_file.open("w", newline="", encoding="utf-8") as csvfile:
+            writer = csv.writer(csvfile)
+            #writer.writerow(["Bank", "Date", "Amount", "Description", "Category"])
+            
+            for trans in transactions:
+                if validate_transaction(trans):
+                    writer.writerow([
+                        trans.bank, 
+                        trans.date, 
+                        trans.amount, 
+                        trans.description, 
+                        trans.category
+                    ])
+        
+        logging.info(f"Saved {len(transactions)} transactions to {output_file}")
+    except Exception as e:
+        logging.error(f"Failed to save transactions: {e}")
+        raise
+
+def validate_transaction(trans: Transaction) -> bool:
+    """Validate transaction data."""
+    try:
+        assert trans.bank, "Bank is required"
+        assert trans.date, "Date is required"
+        assert isinstance(trans.amount, (int, float)), "Amount must be numeric"
+        return True
+    except AssertionError as e:
+        logging.warning(f"Invalid transaction: {e} - {trans}")
+        return False
+
+def get_bank_processor(pdf_file):
+    """Determine the bank processor based on the PDF file content."""
+    text = PdfTextExtractor._extract_text_from_pdf(pdf_file)
+    logging.info(f"Extracted text from {pdf_file.name}")
+    
     bank_processors = {
         "Standard Chartered": StandardCharteredProcessor(),
         "UOB": UOBProcessor(),
         "Citibank": CitibankProcessor(),
         "Trust": TrustProcessor()
     }
+    
+    for bank_name in bank_processors:
+        if bank_name.lower() in text.lower():
+            return bank_processors[bank_name]
+    
+    return None
 
+def main():
+    """Main program with improved error handling and logging."""
+    Config.ensure_dirs()
     all_transactions = []
-    pdf_files = glob.glob("data/statements/*.pdf")  # 获取当前目录下所有PDF文件
-
+    
+    pdf_files = list(Config.PDF_DIR.glob("*.pdf"))
+    if not pdf_files:
+        logging.warning(f"No PDF files found in {Config.PDF_DIR}")
+        return
+    
     for pdf_file in pdf_files:
-        text = PdfTextExtractor._extract_text_from_pdf(pdf_file)
-        print(f"Extracted text from {pdf_file}:")
-        #print(text[:5000])  # 打印前5000个字符用于调试
-        
-        bank = None
-        for bank_name in bank_processors:
-            if bank_name.lower() in text.lower():
-                bank = bank_name
-                break
-
-        if bank:
-            print(f"使用 {bank} 的逻辑处理 {pdf_file}")
-            processor = bank_processors[bank]
-            transactions = processor.process_pdf(pdf_file)
-            all_transactions.extend(transactions)
-        else:
-            print(f"无法识别 {pdf_file} 的银行类型")
-
-    # 输出到CSV
-    with open("data/csv/transactions.csv", "w", newline="", encoding="utf-8") as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(["Bank", "Date", "Amount", "Description", "Category"])
-        for trans in all_transactions:
-            writer.writerow([trans.bank, trans.date, trans.amount, trans.description, trans.category])
-
-    print("交易记录已保存到 transactions.csv")
-
-   
-
+        try:
+            logging.info(f"Processing {pdf_file.name}")
+            processor = get_bank_processor(pdf_file)
+            if processor:
+                transactions = processor.process_pdf(pdf_file)
+                all_transactions.extend(transactions)
+            else:
+                logging.warning(f"Unrecognized bank type for {pdf_file.name}")
+        except Exception as e:
+            logging.error(f"Failed to process {pdf_file.name}: {e}")
+            continue
+    
+    if all_transactions:
+        save_transactions(all_transactions)
+    else:
+        logging.warning("No transactions were processed")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logging.error(f"Program failed: {e}")
+        raise
