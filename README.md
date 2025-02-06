@@ -38,10 +38,19 @@ pip install -r requirements.txt
 
 ## Usage
 
-To parse a statement, run the following command:
+1. Before run the tool, please ensure the statement files are ready in the *data/statements/*
+
+2. To parse a statement, run the following command:
+
 ```sh
-python parse_statement.py --file <path_to_statement>
+python parse_statement.py
 ```
+
+3. You will get the csv file from *data/csv/*
+
+4. Import the csv file to your local Sheet file or online Sheet.
+
+5. Be ready to free analysis your financial data with pivot table and charts as a template.
 
 ## Contributing
 
