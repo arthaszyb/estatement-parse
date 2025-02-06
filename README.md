@@ -1,33 +1,40 @@
 # E-Statement Parser
 
-This project is a Python-based tool for parsing electronic statements.
+A secure, offline tool to transform bank statement PDFs into structured CSV data for personal finance analysis.
 
-## Features
+## Key Features
 
-- Parse PDF and CSV statements
-- Extract transaction details
-- Generate summary reports
+- 🔒 100% offline processing for data privacy
+- 📊 Export to standard CSV format for Excel/Sheets analysis
+- 🏦 Support for major Singapore banks:
+  - Standard Chartered
+  - UOB
+  - Trust Bank
+  - Citibank
+- 🔄 Extensible design for adding new bank formats
+- 📈 Enable personal finance analysis with your preferred tools
 
-## Requirements
+## Why Use This Tool?
 
-- Python 3.7+
-- pandas
-- PyPDF2
+- **Privacy First**: All processing happens locally on your machine
+- **Data Ownership**: Export to standard CSV format you control
+- **Flexible Analysis**: Use with any spreadsheet tool for charts and pivot tables
+- **Easy Extension**: Simple regex-based format for adding new bank support
 
 ## Installation
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/estatement-parse.git
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd estatement-parse
-    ```
-3. Install the required packages:
-    ```sh
-    pip install -r requirements.txt
-    ```
+```bash
+# Clone repository
+git clone https://github.com/arthaszyb/estatement-parse.git
+cd estatement-parse
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On macOS
+
+# Install dependencies
+pip install -r requirements.txt
+```
 
 ## Usage
 

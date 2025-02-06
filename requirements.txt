@@ -1,0 +1,15 @@
+# PDF Processing
+pdfminer.six>=20221105
+pdfplumber>=0.10.3
+python-dateutil>=2.8.2
+
+# Configuration
+PyYAML>=6.0.1
+
+# Core Dependencies
+regex>=2023.10.3
+
+# Optional Development Dependencies
+black>=23.12.1
+pytest>=7.4.4
+flake8>=7.0.0
