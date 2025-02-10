@@ -20,6 +20,11 @@ categories:
     - PIZZAHUT
     - CHATIME
     - 7-ELEVEN
+    - KFC
+    - STARBUCKS
+    - BURGER KING
+    - PASTAMANIA
+    - Toast Box
   Other:
     - PAYPAL
     - CCY CONVERSION FEE
@@ -27,7 +32,6 @@ categories:
   Home:
     - IKEA
     - RENTAL
-    - OWIS
     - HANDYMAN
     - HELPLING
   Grocery:
@@ -64,3 +68,9 @@ categories:
     - MYR
     - CNY
     - IDR
+  Education:
+    - COURSERA
+    - UDEMY
+    - SKILLSHARE
+    - EDX
+    - OWIS

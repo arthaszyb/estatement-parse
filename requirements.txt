@@ -1,12 +1,12 @@
 # PDF Processing
 pdfminer.six>=20221105
 pdfplumber>=0.10.3
-python-dateutil>=2.8.2
 
 # Configuration
 PyYAML>=6.0.1
 
 # Core Dependencies
+python-dateutil>=2.8.2
 regex>=2023.10.3
 
 # Optional Development Dependencies

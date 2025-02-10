@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug Statement Parser",
+            "type": "python",
+            "request": "launch",
+            "program": "test_debug.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

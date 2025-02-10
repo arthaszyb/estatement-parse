@@ -1,8 +1,28 @@
+# macOS system files
 .DS_Store
+
+# Python cache files
 __pycache__/
-*.pyc
-*.pdf
+*.py[cod]
+*$py.class
+
+# Virtual environments
 .env
 venv/
-data/csv/*
-data/statements/*
+
+# Log files and PDFs
+*.log
+*.pdf
+
+# Data directories (you can uncomment if you want to track specific files)
+data/csv/
+data/statements/
+
+# IDE folders
+.vscode/
+.idea/
+
+# Misc
+*.egg-info/
+dist/
+build/
