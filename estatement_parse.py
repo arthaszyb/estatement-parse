@@ -170,7 +170,7 @@ class BankStatementProcessor(ABC, PdfTextExtractor):
                 logger.debug(f"Found statement date string: {date_str}")
                 # 可能是 "January 09, 2025" or "Jan 09 2025" ...
                 # 尝试多种格式
-                possible_formats = ["%B %d, %Y", "%B %d %Y", "%b %d, %Y", "%b %d %Y", "%d %b %Y"]
+                possible_formats = ["%B %d, %Y", "%B %d %Y", "%b %d, %Y", "%b %d %Y", "%d %b %Y", "%B%d,%Y"]
                 for fmt in possible_formats:
                     try:
                         dt_obj = datetime.strptime(date_str.strip(), fmt).date()
@@ -228,7 +228,7 @@ class GenericBankProcessor(BankStatementProcessor):
         key_worlds = [
             'outstanding balance', 'Previous balance', 'Credit Payment',
             'PAYMENT VIA', "PREVIOUS STATEMENT", 'LATECHARGEFEE',
-            'POSTING AMOUNT'
+            'POSTING AMOUNT','CASHBACK','CASH BACK','CASH REBATE','LATE CHARGE'
         ]
 
         for match in matches:

@@ -6,6 +6,15 @@ categories:
     - CABCHARGE
     - TADA
     - MRT
+    - TRANSITLINK
+    - SENTOSA
+    - SENTOSA EXPRESS
+    - MANDAI WILDLIFE
+    - COMFORT
+    - CITYCAB
+    - TAXI
+    - TRANSIT
+
   Food:
     - MCDONALD
     - KOUFU
@@ -25,36 +34,119 @@ categories:
     - BURGER KING
     - PASTAMANIA
     - Toast Box
-  Other:
-    - PAYPAL
-    - CCY CONVERSION FEE
-    - COMMISSION
+    - TEA PARTY
+    - MALA
+    - HAWKER
+    - BK EATING HOUSE
+    - STUFF'D
+    - YOSHINOYA
+    - CANTINE
+    - SONG FA
+    - SUBWAY
+    - ICHIBAN
+    - SUSHI EXPRESS
+    - SWEE HENG
+    - BACHA COFFEE
+    - MARRYBROWN
+    - SAWASDEE THAI
+    - ALATURKA
+    - CHUAN SHI DAI
+    - IMPERIAL
+    - TWYST
+    - EAT 3 BOWLS
+    - FORMOSA DELIGHTS
+    - JINHO SHOKUDO
+    - TWG Tea
+    - Ayasofya
+    - AIYAYA
+    - Jusu Ba
+    - Kopitiam
+    - POT LUCK
+    - Fusion Spoon
+    - TIAN ZONG
+    - SUJI SUAN CAI YU
+    - SPINACH CH
+    - WASHOKU GOE
+    - Pizza Hut
+    - ACW THE BAY
+    - PULLMAN BAKERY
+    - Seafood Market Place
+    - LAU PA SAT
+    - BRINDA'S
+    - SBUX OAKWOOD
+    - SAM YAT EATING
+    - HAPPY ICE
+    - DABBA STREET
+    - HAJUN
+    - BOLEH BOLEH
+    - JINJJACHICKEN
+    - TCC JEM
+    - SAIGON DELI
+    - OHLALA CAFE
+    - THE CARVING
+    - DONDONDONKI
+    - YUE HWA CHINESE PRO
+    - PARIS BAGUETTE
+    - RONGHUA BAK KUT TEH
+    - HONG KONG DIM SUM
+
+  Gifts:
+    - YUE HWA
+    - PRECIOUS THOUGHTS
+
+  Health/medical:
+    - WATSON'S
+    - CARING PHARMACY
+    - GUARDIAN
+    - NUHS
+    - KOPITIAM@NUH
+
   Home:
     - IKEA
     - RENTAL
     - HANDYMAN
     - HELPLING
+    - MUJI
+    - JAPAN HOME
+    - SUPERBOWL DEVELOPMENT
+
   Grocery:
     - GIANT
     - COLD STORAGE
     - FAIRPRICE
     - S MART
     - NTUC FP
+    - DON DON DONKI
+    - SCARLETT
+    - PRIME
+    - SHENG SIONG
+    - CHEERS
+    - SHOPEE
+    - ONIGIRI PLANET
+    - KING OF PRAWN NOODLE
+
   Utilities:
     - SIMBATELECOM
     - SP Digital PL
     - AXS PTE LTD
+    - SP SERVICES
+    - SIMBA TELECOM
+    - AXS
+
   Personal:
-    - SHOPEE
     - GHL EPAYMENT
     - WOK HEY
     - EZPY
     - POPULAR BOOK
     - TGW
-  Health/medical:
-    - WATSON'S
-    - CARING PHARMACY
-    - GUARDIAN
+    - CONVERSE
+    - BOSSINI
+    - NIKE
+    - TOYS'R'US
+    - AMAZON
+    - KIDSWEAR
+    - World of Blocks
+
   Travel:
     - AGODA
     - BYTESIM
@@ -68,9 +160,41 @@ categories:
     - MYR
     - CNY
     - IDR
+    - LEGOLAND
+    - RWS
+    - ISHOP CHANGI
+    - Lotte Duty Free
+    - WINGCRAFT
+
+  Debt:
+    - INTEREST
+    - PTS REDM CASH
+
   Education:
     - COURSERA
     - UDEMY
     - SKILLSHARE
     - EDX
     - OWIS
+    - POPULAR
+    - NLB
+    - EXAMS 
+    - ASSESSMENT
+    - CARDUP-CANADIAN
+    - PAYPAL *ONEWORLDINT
+
+  Subscription:
+    - Amazon Prime
+    - APPLE.COM
+
+  Other:
+    - PAYPAL
+    - CCY CONVERSION FEE
+    - COMMISSION
+    - CASHBACK
+    - MYICA
+    - ONLINE NUC
+    - FINNET
+    - LATE CHARGE
+    - Smile
+    - SKYLINE LUGE
