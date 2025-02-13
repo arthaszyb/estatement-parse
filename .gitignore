@@ -26,3 +26,6 @@ data/statements/
 *.egg-info/
 dist/
 build/
+
+# Test files
+test/
