@@ -1,61 +1,90 @@
 # E-Statement Parser
 
-A secure, offline tool to transform bank statement PDFs into structured CSV data for personal finance analysis.
+**E-Statement Parser** is a secure, offline tool that converts bank statement PDFs into structured CSV data—making your personal finance analysis easier than ever.
+
+---
 
 ## Key Features
 
-- 🔒 100% offline processing for data privacy
-- 📊 Export to standard CSV format for Excel/Sheets analysis
-- 🏦 Support for major Singapore banks:
+- 🔒 **100% Offline Processing:** All operations run locally for maximum data privacy.
+- 📊 **CSV Export:** Easily generate CSV files compatible with Excel, Google Sheets, or any other spreadsheet tool.
+- 🏦 **Supports Major Singapore Banks:**
   - Standard Chartered
   - UOB
   - Trust Bank
   - Citibank
-- 🔄 Extensible design for adding new bank formats
-- 📈 Enable personal finance analysis with your preferred tools
+- 🔄 **Extensible Architecture:** Add support for new bank formats effortlessly using regex-based configurations.
+- 📈 **Empower Your Analysis:** Prepare your data for in-depth analysis with pivot tables, charts, and more.
 
-## Why Use This Tool?
+---
 
-- **Privacy First**: All processing happens locally on your machine
-- **Data Ownership**: Export to standard CSV format you control
-- **Flexible Analysis**: Use with any spreadsheet tool for charts and pivot tables
-- **Easy Extension**: Simple regex-based format for adding new bank support
+## Why Choose E-Statement Parser?
+
+- **Privacy First:** Your sensitive financial data never leaves your computer.
+- **Data Ownership:** You control your data with standard CSV exports.
+- **Flexible Analysis:** Work with your favorite spreadsheet or BI tools.
+- **Easy Customization:** Extend support to additional bank formats with simple regex configurations.
+
+---
 
 ## Installation
 
-```bash
-# Clone repository
-git clone https://github.com/arthaszyb/estatement-parse.git
-cd estatement-parse
+Follow these steps to set up the tool:
 
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On macOS
+1. **Clone the Repository:**
 
-# Install dependencies
-pip install -r requirements.txt
-```
+   ```bash
+   git clone https://github.com/arthaszyb/estatement-parse.git
+   cd estatement-parse
+   ```
+
+2. **Create and Activate a Virtual Environment:**
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # For macOS/Linux
+   # On Windows, use: .venv\Scripts\activate
+   ```
+
+3. **Install Dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
 
 ## Usage
 
-1. Before run the tool, please ensure the statement files are ready in the *data/statements/*
+1. **Prepare Your PDF Files:**
 
-2. To parse a statement, run the following command:
+   - Place your bank statement PDF files in the `data/statements/` directory.
 
-```sh
-python parse_statement.py
-```
+2. **Run the Parser:**
 
-3. You will get the csv file from *data/csv/*
+   ```bash
+   python parse_statement.py
+   ```
 
-4. Import the csv file to your local Sheet file or online Sheet.
+3. **Review the Output:**
 
-5. Be ready to free analysis your financial data with pivot table and charts as a template.
+   - The resulting CSV file(s) will be saved in the `data/csv/` directory.
+
+4. **Analyze Your Data:**
+
+   - Import the CSV file into your preferred spreadsheet or data analysis tool to create charts, pivot tables, and more.
+
+---
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! If you have ideas for improvements or new bank formats to support, please:
+
+- Open an issue to discuss your ideas.
+- Submit a pull request with your enhancements.
+
+---
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
