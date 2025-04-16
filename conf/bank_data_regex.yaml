@@ -75,3 +75,13 @@ banks:
     cr_group: null
     invert_amount_if_cr: false
     plus_means_negative: true
+
+  HSBC:
+    pattern: '(\d{1,2}\s[A-Za-z]{3})\s+(\d{1,2}\s[A-Za-z]{3})\s+(.+?)\s+([\d,.]+)(CR)?'
+    transaction_date_group: 1
+    description_group: 2
+    amount_group: 3
+    cr_group: 4
+    invert_amount_if_cr: true
+    plus_means_negative: false
+    parse_date_format: '%d %b'
