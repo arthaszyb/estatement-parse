@@ -556,7 +556,7 @@ if __name__ == "__main__":
     try:
         main()
         # 如需调试单个 PDF，可取消下面代码注释：
-        # test_single_pdf("data/statements/YourSample.pdf")
+        # test_single_pdf("data/statements/Yourfile.pdf")
     except Exception as e:
         logger.error(f"Program failed: {e}")
         raise
