@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import List, Optional
 from datetime import datetime, date
 from dataclasses import dataclass
+import os
+from functools import lru_cache
 
 
 # ------------------------------------------------------------------------------
@@ -23,10 +25,6 @@ class Transaction:
     description: str
     category: str
 
-
-# YAML file paths 保持不变
-CATEGORY_MAPPING_FILE = "conf/category_mapping.yaml"
-BANK_DATA_REGEX_FILE = "conf/bank_data_regex.yaml"
 
 # ------------------------------------------------------------------------------
 # 2. LOGGING CONFIGURATION (使用 dictConfig 进行配置)
@@ -78,6 +76,8 @@ logger = logging.getLogger(__name__)
 
 
 class Config:
+    CATEGORY_MAPPING_FILE = os.getenv('CATEGORY_MAPPING_FILE', 'conf/category_mapping.yaml')
+    BANK_DATA_REGEX_FILE = os.getenv('BANK_DATA_REGEX_FILE', 'conf/bank_data_regex.yaml')
     OUTPUT_DIR = Path("data/csv")
     PDF_DIR = Path("data/statements")
 
@@ -114,9 +114,11 @@ class BankStatementProcessor(ABC, PdfTextExtractor):
     _category_mapping_cache = None
 
     def __init__(
-        self, bank_name: str, category_mapping_file: str = CATEGORY_MAPPING_FILE
+        self, bank_name: str, category_mapping_file: str = Config.CATEGORY_MAPPING_FILE,
+        mock_text: Optional[str] = None
     ):
         self.bank_name = bank_name
+        self.mock_text = mock_text
         if BankStatementProcessor._category_mapping_cache is None:
             BankStatementProcessor._category_mapping_cache = (
                 self._load_category_mapping(category_mapping_file)
@@ -135,6 +137,7 @@ class BankStatementProcessor(ABC, PdfTextExtractor):
             logger.error(f"Failed to parse YAML file: {e}")
             return {}
 
+    @lru_cache(maxsize=128)
     def categorize_transaction(self, description: str) -> str:
         description_upper = description.upper()
         for category, keywords in self.category_mapping.get("categories", {}).items():
@@ -283,7 +286,7 @@ class GenericBankProcessor(BankStatementProcessor):
         self,
         bank_name: str,
         bank_config: dict,
-        category_mapping_file: str = CATEGORY_MAPPING_FILE,
+        category_mapping_file: str = Config.CATEGORY_MAPPING_FILE,
     ):
         super().__init__(bank_name, category_mapping_file)
         pattern_text = bank_config.get("pattern")
@@ -421,11 +424,11 @@ def save_transactions(
 def load_bank_regex_config() -> dict:
     """加载 bank_data_regex.yaml 配置文件。"""
     try:
-        with open(BANK_DATA_REGEX_FILE, "r", encoding="utf-8") as f:
+        with open(Config.BANK_DATA_REGEX_FILE, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
         return data.get("banks", {})
     except FileNotFoundError:
-        logger.error(f"Bank regex config file not found: {BANK_DATA_REGEX_FILE}")
+        logger.error(f"Bank regex config file not found: {Config.BANK_DATA_REGEX_FILE}")
         return {}
     except yaml.YAMLError as e:
         logger.error(f"Failed to parse bank_data_regex.yaml: {e}")
@@ -550,6 +553,29 @@ def test_single_pdf(pdf_path: str):
         logger.info(f"Transaction: {trans}")
 
     return transactions
+
+
+# Add more specific exception handling
+class BankStatementError(Exception):
+    """Base exception for bank statement processing"""
+    pass
+
+class PDFParseError(BankStatementError):
+    """Raised when PDF parsing fails"""
+    pass
+
+class TransactionParseError(BankStatementError):
+    """Raised when transaction parsing fails"""
+    pass
+
+
+def validate_pdf_path(pdf_path: Path) -> bool:
+    """Validate PDF file path and existence"""
+    if not pdf_path.exists():
+        raise FileNotFoundError(f"PDF file not found: {pdf_path}")
+    if pdf_path.suffix.lower() != '.pdf':
+        raise ValueError(f"File must be a PDF: {pdf_path}")
+    return True
 
 
 if __name__ == "__main__":

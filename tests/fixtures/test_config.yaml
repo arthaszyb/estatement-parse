@@ -1,0 +1,21 @@
+banks:
+  TestBank:
+    pattern: "(\d{2}\s[A-Za-z]{3}\s\d{4})\s+([A-Za-z0-9\s\.]+)\s+\$(\d+\.\d{2})"
+    transaction_date_group: 1
+    description_group: 2
+    amount_group: 3
+    cr_group: null
+    invert_amount_if_cr: false
+    plus_means_negative: false
+    parse_date_format: "%d %b %Y"
+
+categories:
+  Shopping:
+    - AMAZON
+    - WALMART
+  Food:
+    - RESTAURANT
+    - GROCERY
+  Other:
+    - PAYMENT
+    - CASHBACK 

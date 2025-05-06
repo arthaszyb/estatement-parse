@@ -1,0 +1,20 @@
+BANK STATEMENT
+Account: 1234-5678-9012
+Statement Date: 31 Jan 2024
+
+TRANSACTIONS
+Date        Description                 Amount
+01 Jan 2024 AMAZON.COM                 $50.00
+02 Jan 2024 WALMART                    $75.50
+03 Jan 2024 RESTAURANT ABC             $25.00
+04 Jan 2024 GROCERY STORE              $100.00
+05 Jan 2024 PAYMENT VIA TRANSFER       $500.00
+06 Jan 2024 CASHBACK                   $10.00
+07 Jan 2024 AMAZON.COM                 $30.00
+08 Jan 2024 RESTAURANT XYZ             $45.00
+
+SUMMARY
+Previous Balance: $1000.00
+Total Credits:    $510.00
+Total Debits:     $326.50
+Current Balance:  $1183.50 

@@ -13,3 +13,14 @@ regex>=2023.10.3
 black>=23.12.1
 pytest>=7.4.4
 flake8>=7.0.0
+
+# Additional Dependencies
+pandas>=2.0.0
+openpyxl>=3.1.2  # For Excel export support
+fpdf>=1.7.2
+
+pytest==8.3.5
+pandas==2.2.1
+openpyxl==3.1.2
+PyYAML==6.0.1
+python-dateutil==2.8.2

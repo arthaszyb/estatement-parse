@@ -75,6 +75,8 @@ banks:
     cr_group: null
     invert_amount_if_cr: false
     plus_means_negative: true
+    statement_date_pattern: '(?i)Statement\s+Date:\s*(\d{2}\s[A-Za-z]{3}\s\d{4})'
+    statement_date_format: "%d %b %Y"
 
   HSBC:
     pattern: '(\d{1,2}\s[A-Za-z]{3})\s+(\d{1,2}\s[A-Za-z]{3})\s+(.+?)\s+([\d,.]+)(CR)?'

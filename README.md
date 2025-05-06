@@ -1,90 +1,117 @@
-# E-Statement Parser
+# Bank Statement Parser
 
-**E-Statement Parser** is a secure, offline tool that converts bank statement PDFs into structured CSV data—making your personal finance analysis easier than ever.
+A Python application for parsing and processing bank statements from PDF files.
 
----
+## Features
 
-## Key Features
-
-- 🔒 **100% Offline Processing:** All operations run locally for maximum data privacy.
-- 📊 **CSV Export:** Easily generate CSV files compatible with Excel, Google Sheets, or any other spreadsheet tool.
-- 🏦 **Supports Major Singapore Banks:**
-  - Standard Chartered
-  - UOB
-  - Trust Bank
-  - Citibank
-- 🔄 **Extensible Architecture:** Add support for new bank formats effortlessly using regex-based configurations.
-- 📈 **Empower Your Analysis:** Prepare your data for in-depth analysis with pivot tables, charts, and more.
-
----
-
-## Why Choose E-Statement Parser?
-
-- **Privacy First:** Your sensitive financial data never leaves your computer.
-- **Data Ownership:** You control your data with standard CSV exports.
-- **Flexible Analysis:** Work with your favorite spreadsheet or BI tools.
-- **Easy Customization:** Extend support to additional bank formats with simple regex configurations.
-
----
+- PDF text extraction and parsing
+- Support for multiple bank statement formats
+- Parallel processing of multiple PDFs
+- Transaction categorization
+- Multiple export formats (CSV, Excel, JSON)
+- Comprehensive logging
+- Input validation and error handling
 
 ## Installation
 
-Follow these steps to set up the tool:
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/estatement-parse.git
+cd estatement-parse
+```
 
-1. **Clone the Repository:**
+2. Create and activate a virtual environment:
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
 
-   ```bash
-   git clone https://github.com/arthaszyb/estatement-parse.git
-   cd estatement-parse
-   ```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-2. **Create and Activate a Virtual Environment:**
+## Configuration
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # For macOS/Linux
-   # On Windows, use: .venv\Scripts\activate
-   ```
+1. Place your bank statement PDFs in the `data/statements` directory.
 
-3. **Install Dependencies:**
+2. Configure bank-specific regex patterns in `conf/bank_data_regex.yaml`:
+```yaml
+banks:
+  BankName:
+    pattern: "regex pattern"
+    transaction_date_group: 1
+    description_group: 2
+    amount_group: 3
+    cr_group: 4
+    invert_amount_if_cr: true
+    plus_means_negative: false
+    parse_date_format: "%d %b"
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
----
+3. Configure transaction categories in `conf/category_mapping.yaml`:
+```yaml
+categories:
+  Shopping:
+    - AMAZON
+    - WALMART
+  Food:
+    - RESTAURANT
+    - GROCERY
+```
 
 ## Usage
 
-1. **Prepare Your PDF Files:**
+Run the application:
+```bash
+python -m src.main
+```
 
-   - Place your bank statement PDF files in the `data/statements/` directory.
+The processed transactions will be exported to:
+- `data/csv/transactions_YYYYMMDD.csv`
+- `data/csv/transactions_YYYYMMDD.xlsx`
+- `data/csv/transactions_YYYYMMDD.json`
 
-2. **Run the Parser:**
+## Project Structure
 
-   ```bash
-   python parse_statement.py
-   ```
+```
+estatement-parse/
+├── src/
+│   ├── processors/      # Bank statement processors
+│   ├── models/          # Data models
+│   ├── utils/           # Utility functions
+│   └── main.py         # Application entry point
+├── tests/              # Test files
+├── conf/               # Configuration files
+├── data/               # Data directories
+│   ├── csv/           # Exported transactions
+│   ├── statements/    # Input PDF files
+│   └── logs/          # Application logs
+└── requirements.txt    # Dependencies
+```
 
-3. **Review the Output:**
+## Logging
 
-   - The resulting CSV file(s) will be saved in the `data/csv/` directory.
+Logs are written to:
+- Console (INFO level)
+- `data/logs/app.log` (DEBUG level)
 
-4. **Analyze Your Data:**
+## Error Handling
 
-   - Import the CSV file into your preferred spreadsheet or data analysis tool to create charts, pivot tables, and more.
-
----
+The application includes comprehensive error handling for:
+- PDF parsing errors
+- Transaction parsing errors
+- Configuration errors
+- Input validation errors
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for improvements or new bank formats to support, please:
-
-- Open an issue to discuss your ideas.
-- Submit a pull request with your enhancements.
-
----
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the LICENSE file for details.
